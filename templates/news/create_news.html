@@ -1,0 +1,43 @@
+{% extends "base/base.html" %}
+
+
+{% block content %}
+
+    {% include "base/header.html" %}
+
+    <div class="container-fluid">
+        <main class="tm-main">
+
+        <form action="" method="post" enctype="multipart/form-data" class="create_blog">
+            {% csrf_token %}
+            <label for="title">Название:</label>
+            <input type="text" name="title" id="" required>
+
+            <label for="title">Игра:</label>
+            <input type="text" name="games" id="" required>
+
+            <label for="title">Автор:</label>
+            <input type="text" name="user" id="" required>
+
+            <label for="description">Описание:</label>
+            <textarea name="description" id="" cols="30" rows="10" required></textarea>
+
+            <label for="image">Фото:</label>
+            <input type="file" name="image" id="" required>
+
+            <label for="tags">Введите тег:</label>
+            <input name="tag">
+            <select name="tags" style="font-size: 20px">
+                <option value="">---</option>
+                {% for tag in tags %}
+                <option value="{{ tag.id }}" name="tag">{{ tag.title }}</option>
+                {% endfor %}
+            </select>
+            <br>
+            <button type="submit" style="margin-top: 20px">Создать пост</button>
+        </form>
+        </main>
+    </div>
+
+
+{% endblock content %}

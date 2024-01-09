@@ -1,0 +1,84 @@
+{% extends 'base/base.html' %}
+
+{% block content %}
+
+    <!-- Preloader Start -->
+    <div id="preloader-active">
+        <div class="preloader d-flex align-items-center justify-content-center">
+            <div class="preloader-inner position-relative">
+                <div class="preloader-circle"></div>
+                <div class="preloader-img pere-text">
+                    <img src="assets/img/logo/logo.png" alt="">
+                </div>
+            </div>
+        </div>
+    </div>
+    <!-- Preloader Start-->
+
+    {% include 'base/header.html' %}
+
+    <!--================Blog Area =================-->
+    <section class="blog_area section-padding">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-8 mb-5 mb-lg-0">
+                    <h1 style="margin-bottom: 40px;">Игры</h1>
+                    <div class="blog_left_sidebar">
+
+                        {% for game in games %}
+                        <article class="blog_item">
+                            <div class="blog_item_img">
+                                <img class="card-img rounded-0" src="{{ game.image.url }}" alt="">
+                                <a href="" class="blog_item_date">
+                                    <h3>{{ game.created_at.day }}</h3>
+                                    <p>{{ game.created_at|date:"F" }}</p>
+                                </a>
+                            </div>
+
+                            <div class="blog_details">
+                                <a class="d-inline-block" href="#">
+                                    <h2> <li><a href="{% url 'detail_game' game.id %}">{{ game.title }}</a></h2>
+                                </a>
+                                <p>
+                                    {{ game.description|truncatewords:30 }}
+                                </p>
+                                <ul class="blog-info-link">
+                                    <li><a href="#"><i class="fa fa-user"></i> Travel, Lifestyle</a></li>
+                                    <li><a href="#"><i class="fa fa-comments"></i> 03 Comments</a></li>
+                                </ul>
+                            </div>
+                        </article>
+                        {% endfor %}
+                    </div>
+                </div>
+                <div class="col-lg-4">
+                    <div class="blog_right_sidebar">
+                        <aside class="single_sidebar_widget search_widget">
+                            {% include 'base/search.html' %}
+                        </aside>
+                        <aside class="single_sidebar_widget tag_cloud_widget">
+                            <h4 class="widget_title">Жанры</h4>
+                            <ul class="list">
+                              {% if tags %}
+                                        {% for genre in genres %}
+                                            <li>
+                                                <a href="{% url 'games_in_genres' genre.title %}" class="d-flex">
+                                                    <p>{{ genre }}</p>
+                                                </a>
+                                            </li>
+                                        {% endfor %}
+                                    {% else %}
+                                        <li>No tags available</li>
+                              {% endif %}
+                            </ul>
+                        </aside>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <!--================Blog Area =================-->
+
+    {% include 'base/footer.html' %}
+
+{% endblock content %}
